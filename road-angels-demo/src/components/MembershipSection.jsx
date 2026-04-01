@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Shield, Star, Crown, ChevronRight, CheckCircle2 } from "lucide-react";
+import { Trophy, ChevronRight, CheckCircle2 } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
 
 export default function MembershipSection({ navigateTo }) {
@@ -11,7 +11,6 @@ export default function MembershipSection({ navigateTo }) {
     async function checkStatus() {
       const { data: { user } } = await supabase.auth.getUser();
       if (user) {
-        // Corrected: Querying profiles by user id
         const { data } = await supabase
           .from('profiles')
           .select('is_active_member')
@@ -64,7 +63,7 @@ export default function MembershipSection({ navigateTo }) {
     {
       name: "Bronze Badge",
       duration: "4 Months",
-      icon: <Shield className="text-[#cd7f32]" size={24} />,
+      icon: <Trophy className="text-[#cd7f32]" size={24} />,
       benefit: "FREE Full Maintenance",
       description: "Unlocks a free DSG gearbox service including oil, filters, and software updates after 4 months of active status.",
       accent: "border-[#cd7f32]/20"
@@ -72,7 +71,7 @@ export default function MembershipSection({ navigateTo }) {
     {
       name: "Silver Badge",
       duration: "12 Months",
-      icon: <Star className="text-[#c0c0c0]" size={24} />,
+      icon: <Trophy className="text-[#c0c0c0]" size={24} />,
       benefit: "30% Service Discount",
       description: "Massive savings on gearbox services and clutch replacements, plus free maintenance and software updates.",
       accent: "border-[#c0c0c0]/20"
@@ -80,7 +79,7 @@ export default function MembershipSection({ navigateTo }) {
     {
       name: "Gold Badge",
       duration: "24 Months",
-      icon: <Crown className="text-[#ffd700]" size={24} />,
+      icon: <Trophy className="text-[#ffd700]" size={24} />,
       benefit: "50% Overhaul Discount",
       description: "The ultimate package: Half-price overhauls, roadside assistance, and flexible payment plans for dead units.",
       accent: "border-[#ffd700]/20"
@@ -120,7 +119,7 @@ export default function MembershipSection({ navigateTo }) {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: i * 0.1 }}
-              className={`p-10 bg-[#080808] border ${tier.accent} relative group hover:bg-[#0c0c0c] transition-all duration-500`}
+              className={`p-10 bg-[#080808] border ${tier.accent} relative group hover:bg-[#0c0c0c] transition-all duration-500 flex flex-col h-full`}
             >
               <div className="flex justify-between items-start mb-8">
                 <div className="p-3 bg-white/[0.03] border border-white/5">
@@ -134,40 +133,36 @@ export default function MembershipSection({ navigateTo }) {
                 {tier.benefit}
               </div>
 
-              <p className="text-[11px] text-gray-500 uppercase leading-relaxed tracking-wider mb-8 italic">
+              <p className="text-[11px] text-gray-500 uppercase leading-relaxed tracking-wider mb-8 italic flex-grow">
                 "{tier.description}"
               </p>
 
-              <ul className="space-y-3 pt-6 border-t border-white/5">
+              <ul className="space-y-3 py-6 border-y border-white/5 mb-8">
                  <li className="flex items-center gap-3 text-[9px] text-gray-400 uppercase tracking-widest">
-                    <CheckCircle2 size={12} className="text-[var(--color-halo-silver)]" /> DSG Gearbox Discounts
+                    <CheckCircle2 size={12} className="text-[#2e375f]" /> DSG Gearbox Discounts
                  </li>
                  <li className="flex items-center gap-3 text-[9px] text-gray-400 uppercase tracking-widest">
-                    <CheckCircle2 size={12} className="text-[var(--color-halo-silver)]" /> Software Updates 
+                    <CheckCircle2 size={12} className="text-[#2e375f]" /> Software Updates 
                  </li>
                  <li className="flex items-center gap-3 text-[9px] text-gray-400 uppercase tracking-widest">
-                    <CheckCircle2 size={12} className="text-[var(--color-halo-silver)]" /> Roadside Assistance 
+                    <CheckCircle2 size={12} className="text-[#2e375f]" /> Roadside Assistance 
                  </li>
               </ul>
+
+              {/* Individual Subscribe Button */}
+              <button
+                onClick={handleJoin}
+                disabled={isActive || loading}
+                className={`w-full py-4 text-[9px] font-black uppercase tracking-[0.2em] transition-all
+                  ${isActive 
+                    ? 'bg-green-600/20 text-green-500 border border-green-500/20 cursor-default' 
+                    : 'bg-[#2e375f] text-white hover:bg-white hover:text-black'
+                  } ${loading ? 'opacity-50' : ''}`}
+              >
+                {loading ? 'Processing...' : isActive ? '✓ Active' : 'Subscribe R195/m'}
+              </button>
             </motion.div>
           ))}
-        </div>
-
-        <div className="mt-12 p-8 bg-[var(--color-halo-silver)]/5 border border-[var(--color-halo-silver)]/20 flex flex-col md:flex-row items-center justify-between gap-6">
-           <p className="text-[10px] text-gray-400 uppercase tracking-widest">
-             Subscribe today for <span className="text-white font-black">R195/Month</span> and drive smarter with Road Angels RSA.
-           </p>
-           <button 
-             onClick={handleJoin}
-             disabled={isActive || loading}
-             className={`px-10 py-4 text-[10px] font-black uppercase tracking-[0.3em] transition-all
-               ${isActive 
-                 ? 'bg-green-600 text-white cursor-default' 
-                 : 'bg-[var(--color-halo-silver)] text-white hover:bg-white hover:text-black'
-               } ${loading ? 'opacity-50' : ''}`}
-           >
-             {loading ? 'Processing...' : isActive ? '✓ Active Member' : 'Join The Collective'}
-           </button>
         </div>
       </div>
     </section>

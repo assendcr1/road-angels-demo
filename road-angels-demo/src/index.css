@@ -1,49 +1,17 @@
 @import "tailwindcss";
 
 @theme {
-  /* The "Halo" Palette - Derived from your logo's sky and chrome tones */
-  --color-halo-silver: #B0C4DE;    /* Arctic Blue-Silver (The Angel/Sky tone) */
-  --color-liquid-chrome: #E5E7EB;  /* Bright Metallic (The VW/Audi badge tone) */
-  --color-deep-obsidian: #050505;  /* Your base black */
-  
-  /* Custom Utilities */
-  --shadow-halo: 0 0 20px rgba(176, 196, 222, 0.15);
-  --shadow-halo-strong: 0 0 40px rgba(176, 196, 222, 0.3);
+  --color-halo-silver: #B0C4DE;
+  --color-vag-blue: #2e375f;
+  --color-deep-obsidian: #050505;
 }
 
 @layer base {
   body {
     @apply bg-deep-obsidian text-white antialiased selection:bg-halo-silver selection:text-black;
     margin: 0;
+    overflow-x: hidden;
   }
 }
 
-/* Ethereal "Angel" Animations */
-@keyframes halo-pulse {
-  0%, 100% { opacity: 0.3; filter: blur(10px); }
-  50% { opacity: 0.6; filter: blur(15px); }
-}
-
-@keyframes entrance-glide {
-  0% { opacity: 0; transform: translateY(10px); }
-  100% { opacity: 1; transform: translateY(0); }
-}
-
-.animate-halo {
-  animation: halo-pulse 4s ease-in-out infinite;
-}
-
-.animate-glide {
-  animation: entrance-glide 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-/* Glassmorphism for that "Frosted" logo feel */
-.glass-panel {
-  @apply bg-white/[0.03] border border-white/10 backdrop-blur-md;
-}
-
-.lens-flare {
-  background: linear-gradient(90deg, transparent 0%, rgba(176, 196, 222, 0.3) 50%, transparent 100%);
-  height: 1px;
-  width: 100%;
-}
+main { padding-top: env(safe-area-inset-top); }
