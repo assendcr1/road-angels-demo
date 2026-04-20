@@ -73,8 +73,7 @@ function App() {
   const isDashboardView = ['user-dashboard', 'admin-dashboard', 'auth', 'admin-login'].includes(currentPage);
 
   return (
-    <div className="bg-[#050505] text-white min-h-screen font-sans antialiased selection:bg-[var(--color-halo-silver)] selection:text-black overflow-x-hidden">
-      
+    <div className="bg-white text-black min-h-screen font-sans antialiased selection:bg-[var(--color-halo-silver)] selection:text-black overflow-x-hidden">
       {!isDashboardView && (
         <Navbar 
           setPage={(page) => navigateTo(page)} 
@@ -162,7 +161,7 @@ function App() {
       {!isDashboardView && <StickyWhatsApp />}
 
       {!isDashboardView && (
-        <footer className="bg-[#030303] py-12 border-t border-white/5">
+        <footer className="bg-white py-12 border-t border-gray-200">
           <div className="max-w-7xl mx-auto px-8 flex justify-between items-center text-[8px] text-gray-700 uppercase tracking-[0.4em] font-bold">
             <p>&copy; {new Date().getFullYear()} Road Angels RSA</p>
             <p className="hover:text-white cursor-pointer transition-colors" onClick={() => navigateTo('admin-login')}>SECURE TERMINAL</p>
